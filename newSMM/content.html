@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content — VARRO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .content-hub { max-width: 1200px; margin: 0 auto; padding: 60px 40px 100px; }
+  .content-filters { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+  .filter-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 10px 20px; border: 1px solid var(--charcoal); background: transparent; color: var(--light-muted); cursor: pointer; transition: all var(--transition-fast); }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); }
+  .content-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .content-card { background: var(--dark); overflow: hidden; transition: transform var(--transition); }
+  .content-card:hover { transform: translateY(-4px); }
+  .content-card img { height: 220px; object-fit: cover; }
+  .content-card-body { padding: 24px; }
+  .content-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: block; }
+  .content-card-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 500; color: var(--off-white); margin-bottom: 10px; line-height: 1.4; }
+  .content-card-body p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+  .content-meta { display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--muted); }
+  .read-more { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); transition: opacity var(--transition-fast); }
+  .read-more:hover { opacity: 0.7; }
+  .featured-content { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 60px; background: var(--dark); overflow: hidden; }
+  .featured-content img { height: 420px; }
+  .featured-content-body { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+  .featured-content-body .content-tag { font-size: 0.8rem; margin-bottom: 16px; }
+  .featured-content-body h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 400; color: var(--off-white); margin-bottom: 18px; line-height: 1.25; }
+  .featured-content-body p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 28px; }
+  @media(max-width:900px){ .content-grid{grid-template-columns:1fr 1fr;} .featured-content{grid-template-columns:1fr;} }
+  @media(max-width:600px){ .content-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="logo">VARRO</a>
+            <nav class="main-nav" id="main-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="about.html" class="nav-link">About</a>
+      <div class="nav-dropdown">
+        <span class="nav-link nav-dropdown-toggle">Content <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <div class="nav-dropdown-menu">
+          <a href="blog.html">Blog</a>
+          <a href="content.html">Content Hub</a>
+          <a href="videos.html">Videos</a>
+          <a href="insights.html">Insights</a>
+          <a href="newsletters.html">Newsletters</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-link nav-dropdown-toggle">Marketing <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <div class="nav-dropdown-menu">
+          <a href="social-media-marketing.html">Social Media</a>
+		  <a href="affiliate.html">Affiliate Marketing</a>
+          <a href="deal-sourcing.html">Deal Sourcing</a>
+          <a href="promo-emails.html">Promo Emails</a>
+          <a href="transaction-emails.html">Transaction Emails</a>
+        </div>
+      </div>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="login.html" class="nav-link">Login</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="cart-btn" aria-label="Cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="section-label">Editorial</span>
+  <h1>Content & Stories</h1>
+  <p>Style guides, brand stories, and the ideas behind what we make.</p>
+</div>
+
+<div class="content-hub">
+
+  <!-- FEATURED ARTICLE -->
+  <div class="featured-content" data-aos="fade-up">
+    <img src="webUploads/indexPage1.jpg" alt="Featured">
+    <div class="featured-content-body">
+      <span class="content-tag">Featured · Style Guide</span>
+      <h2>The Art of Dressing Well Without Trying Too Hard</h2>
+      <p>True style isn't about wearing the most expensive pieces — it's about understanding proportion, fabric, and the quiet confidence that comes from knowing you look right for the occasion.</p>
+      <a href="#" class="btn-primary" style="display:inline-flex;width:fit-content;">Read the Story</a>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="content-filters">
+    <button class="filter-btn active" onclick="filterContent('all', this)">All</button>
+    <button class="filter-btn" onclick="filterContent('style', this)">Style Guides</button>
+    <button class="filter-btn" onclick="filterContent('brand', this)">Brand Stories</button>
+    <button class="filter-btn" onclick="filterContent('care', this)">Care Tips</button>
+    <button class="filter-btn" onclick="filterContent('culture', this)">Culture</button>
+  </div>
+
+  <!-- CONTENT GRID -->
+  <div class="content-grid">
+    <div class="content-card" data-category="style">
+      <img src="webUploads/indexPage8.jpg" alt="Style">
+      <div class="content-card-body">
+        <span class="content-tag">Style Guide</span>
+        <h3>Building a Capsule Wardrobe That Lasts</h3>
+        <p>Fewer pieces, more possibilities. Here's how to build a curated wardrobe around 12 essential items.</p>
+        <div class="content-meta">
+          <span>5 min read</span>
+          <a href="#" class="read-more">Read →</a>
+        </div>
+      </div>
+    </div>
+    <div class="content-card" data-category="brand">
+      <img src="webUploads/aboutPagePic2.jpg" alt="Brand">
+      <div class="content-card-body">
+        <span class="content-tag">Brand Story</span>
+        <h3>Why We Only Source Merino From New Zealand</h3>
+        <p>The altitude, the climate, the heritage — what makes New Zealand merino the world's finest.</p>
+        <div class="content-meta">
+          <span>7 min read</span>
+          <a href="#" class="read-more">Read →</a>
+        </div>
+      </div>
+    </div>
+    <div class="content-card" data-category="care">
+      <img src="webUploads/productPage5.jpg" alt="Care">
+      <div class="content-card-body">
+        <span class="content-tag">Care Tips</span>
+        <h3>How to Wash a Wool Blazer Without Ruining It</h3>
+        <p>With the right technique, your finest garments can last decades. A practical guide to caring for wool.</p>
+        <div class="content-meta">
+          <span>4 min read</span>
+          <a href="#" class="read-more">Read →</a>
+        </div>
+      </div>
+    </div>
+    <div class="content-card" data-category="culture">
+      <img src="webUploads/contentPage.jpg" alt="Culture">
+      <div class="content-card-body">
+        <span class="content-tag">Culture</span>
+        <h3>The Return of Quiet Luxury</h3>
+        <p>No logos, no noise. How understated dressing became the most powerful statement in fashion.</p>
+        <div class="content-meta">
+          <span>6 min read</span>
+          <a href="#" class="read-more">Read →</a>
+        </div>
+      </div>
+    </div>
+    <div class="content-card" data-category="style">
+      <img src="webUploads/indexPage9.jpg" alt="Trousers">
+      <div class="content-card-body">
+        <span class="content-tag">Style Guide</span>
+        <h3>Trouser Break: The Difference 2 Inches Makes</h3>
+        <p>The hem height of your trousers changes everything. Here's how to get it exactly right.</p>
+        <div class="content-meta">
+          <span>3 min read</span>
+          <a href="#" class="read-more">Read →</a>
+        </div>
+      </div>
+    </div>
+    <div class="content-card" data-category="brand">
+      <img src="webUploads/indexPage4.jpg" alt="Craftsmanship">
+      <div class="content-card-body">
+        <span class="content-tag">Brand Story</span>
+        <h3>Meet the Craftsmen Behind Every Stitch</h3>
+        <p>From the mills of Portugal to our Shoreditch studio — the hands that make VARRO what it is.</p>
+        <div class="content-meta">
+          <span>9 min read</span>
+          <a href="#" class="read-more">Read →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">VARRO</a>
+      <p>Crafted for men who move through the world with purpose. Premium clothing, timeless style.</p>
+      <div class="social-icons">
+        <a href="https://www.instagram.com" target="_" class="social-icon" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com" target="_" class="social-icon" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://x.com/login" target="_" class="social-icon" aria-label="Twitter / X">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+        </a>
+        <a href="https://www.pinterest.com"  target="_" class="social-icon" aria-label="Pinterest">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 100 20c.6 0 1.2-.06 1.77-.17-.3-.78-.58-1.97-.12-2.83l.86-3.62s-.22-.44-.22-1.1c0-1.03.6-1.8 1.34-1.8.63 0 .94.48.94 1.05 0 .64-.41 1.6-.62 2.49-.18.74.37 1.35 1.1 1.35 1.32 0 2.21-1.7 2.21-3.7 0-1.53-1.04-2.68-2.93-2.68-2.14 0-3.48 1.6-3.48 3.39 0 .61.18 1.04.46 1.37a.42.42 0 01.1.4l-.18.71c-.06.22-.2.28-.36.2-1.02-.42-1.5-1.53-1.5-2.78 0-2.06 1.74-4.55 5.19-4.55 2.8 0 4.64 2.04 4.64 4.23 0 2.9-1.6 5.07-3.96 5.07-.79 0-1.54-.43-1.8-.91l-.5 1.97c-.18.7-.67 1.58-1 2.1A10 10 0 0012 2z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/" target="_" class="social-icon" aria-label="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+        </a>
+        <a href="http://tiktok.com" target="_" class="social-icon" aria-label="TikTok">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Shop</h4>
+      <a href="products.html">New Arrivals</a>
+      <a href="products.html?cat=shirts">Shirts</a>
+      <a href="products.html?cat=outerwear">Outerwear</a>
+      <a href="products.html?cat=trousers">Trousers</a>
+      <a href="products.html?cat=knitwear">Knitwear</a>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a href="#">Careers</a>
+      <a href="#">Sustainability</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-links">
+      <h4>Help</h4>
+      <a href="#">Sizing Guide</a>
+      <a href="#">Shipping & Returns</a>
+      <a href="#">FAQ</a>
+      <a href="#">Track Order</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 VARRO. All rights reserved. Crafted with intention.</p>
+  </div>
+</footer>
+
+<script src='https://cdn.jotfor.ms/agent/embedjs/019d1aa6088c79c6aecacb96e43dace4419d/embed.js'></script>
+
+<script src="main.js"></script>
+<script>
+function filterContent(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.content-card').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.category === cat) ? 'block' : 'none';
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Videos — VARRO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .videos-hub { max-width: 1280px; margin: 0 auto; padding: 60px 40px 100px; }
+  .videos-filters { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 52px; }
+  .filter-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 10px 20px; border: 1px solid var(--charcoal); background: transparent; color: var(--light-muted); cursor: pointer; transition: all var(--transition-fast); }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); }
+
+  /* FEATURED VIDEO */
+  .featured-video-wrap { position: relative; margin-bottom: 64px; background: var(--dark); overflow: hidden; }
+  .featured-video-thumb { position: relative; aspect-ratio: 16/7; overflow: hidden; }
+  .featured-video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+  .featured-video-wrap:hover .featured-video-thumb img { transform: scale(1.03); }
+  .featured-video-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.1) 100%); }
+  .featured-video-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 60px; }
+  .featured-video-content .content-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
+  .featured-video-content h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 400; color: var(--white); margin-bottom: 14px; line-height: 1.15; max-width: 560px; }
+  .featured-video-content p { font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 440px; margin-bottom: 28px; }
+  .play-btn-large { display: inline-flex; align-items: center; gap: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 14px 28px; border: none; cursor: pointer; transition: background var(--transition-fast); }
+  .play-btn-large:hover { background: var(--gold-light); }
+  .play-btn-large svg { flex-shrink: 0; }
+  .featured-duration { position: absolute; bottom: 20px; right: 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; background: rgba(0,0,0,0.7); color: var(--off-white); padding: 4px 10px; }
+
+  /* VIDEO GRID */
+  .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .video-card { background: var(--dark); overflow: hidden; cursor: pointer; transition: transform var(--transition); }
+  .video-card:hover { transform: translateY(-5px); }
+  .video-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .video-card:hover .video-thumb img { transform: scale(1.06); }
+  .video-thumb-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity var(--transition); }
+  .video-card:hover .video-thumb-overlay { opacity: 1; }
+  .play-circle { width: 54px; height: 54px; border-radius: 50%; background: rgba(201,169,110,0.9); display: flex; align-items: center; justify-content: center; }
+  .play-circle svg { margin-left: 4px; }
+  .video-duration { position: absolute; bottom: 10px; right: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.08em; background: rgba(0,0,0,0.75); color: var(--off-white); padding: 3px 8px; }
+  .video-category-badge { position: absolute; top: 12px; left: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; background: var(--gold); color: var(--black); padding: 4px 10px; }
+  .video-card-body { padding: 22px 22px 24px; }
+  .video-card-body .content-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; display: block; }
+  .video-card-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 500; color: var(--off-white); margin-bottom: 8px; line-height: 1.35; }
+  .video-card-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+  .video-card-meta { display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.08em; }
+  .video-card-meta .views { display: flex; align-items: center; gap: 5px; }
+
+  /* MODAL */
+  .video-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.92); align-items: center; justify-content: center; padding: 20px; }
+  .video-modal.open { display: flex; }
+  .modal-inner { width: 100%; max-width: 900px; position: relative; }
+  .modal-close { position: absolute; top: -44px; right: 0; background: none; border: none; color: var(--off-white); cursor: pointer; font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+  .modal-close:hover { color: var(--gold); }
+  .modal-video-placeholder { aspect-ratio: 16/9; background: var(--charcoal); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
+  .modal-video-placeholder p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .modal-video-placeholder strong { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--off-white); }
+
+  /* SERIES STRIP */
+  .series-section { margin-top: 80px; padding-top: 60px; border-top: 1px solid rgba(255,255,255,0.05); }
+  .series-section .section-header { margin-bottom: 40px; }
+  .series-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .series-card { background: var(--dark); padding: 28px; border: 1px solid rgba(255,255,255,0.05); transition: border-color var(--transition); cursor: pointer; }
+  .series-card:hover { border-color: var(--gold); }
+  .series-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .series-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--off-white); margin-bottom: 10px; }
+  .series-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  @media(max-width:1100px){ .video-grid{ grid-template-columns: repeat(2,1fr); } .series-strip{ grid-template-columns: repeat(2,1fr); } }
+  @media(max-width:700px){ .video-grid{ grid-template-columns: 1fr; } .featured-video-content{ padding: 30px; } .series-strip{ grid-template-columns: 1fr; } .videos-hub{ padding: 40px 24px 80px; } }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="logo">VARRO</a>
+            <nav class="main-nav" id="main-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="about.html" class="nav-link">About</a>
+      <div class="nav-dropdown">
+        <span class="nav-link nav-dropdown-toggle">Content <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <div class="nav-dropdown-menu">
+          <a href="blog.html">Blog</a>
+          <a href="content.html">Content Hub</a>
+          <a href="videos.html">Videos</a>
+          <a href="insights.html">Insights</a>
+          <a href="newsletters.html">Newsletters</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-link nav-dropdown-toggle">Marketing <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <div class="nav-dropdown-menu">
+          <a href="social-media-marketing.html">Social Media</a>
+          <a href="affiliate.html">Affiliate Marketing</a>
+          <a href="deal-sourcing.html">Deal Sourcing</a>
+          <a href="promo-emails.html">Promo Emails</a>
+          <a href="transaction-emails.html">Transaction Emails</a>
+        </div>
+      </div>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="login.html" class="nav-link">Login</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="cart-btn" aria-label="Cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="section-label">Watch</span>
+  <h1>VARRO Films</h1>
+  <p>Behind the craft, styling sessions, and the stories we wear.</p>
+</div>
+
+<div class="videos-hub">
+
+  <!-- FEATURED VIDEO -->
+  <div class="featured-video-wrap" data-aos="fade-up" onclick="openModal('The Art of Getting Dressed')">
+    <div class="featured-video-thumb">
+      <img src="webUploads/indexPage1.jpg" alt="Featured Film">
+      <div class="featured-video-overlay"></div>
+    </div>
+    <div class="featured-video-content">
+      <span class="content-tag">Featured Film · 2025</span>
+      <h2>The Art of Getting Dressed</h2>
+      <p>A quiet meditation on what it means to dress with intention. Shot across four cities, one philosophy.</p>
+      <button class="play-btn-large">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch Now
+      </button>
+    </div>
+    <span class="featured-duration">12:48</span>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="videos-filters">
+    <button class="filter-btn active" onclick="filterVideos('all', this)">All</button>
+    <button class="filter-btn" onclick="filterVideos('style', this)">Style</button>
+    <button class="filter-btn" onclick="filterVideos('craft', this)">Craft</button>
+    <button class="filter-btn" onclick="filterVideos('campaign', this)">Campaigns</button>
+    <button class="filter-btn" onclick="filterVideos('tutorial', this)">Tutorials</button>
+    <button class="filter-btn" onclick="filterVideos('brand', this)">Brand</button>
+  </div>
+
+  <!-- VIDEO GRID -->
+  <div class="video-grid">
+
+    <div class="video-card" data-category="style" onclick="openModal('Capsule Wardrobe Guide')">
+      <div class="video-thumb">
+        <img src="webUploads/indexPage8.jpg" alt="Style">
+        <div class="video-thumb-overlay">
+          <div class="play-circle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+        <span class="video-duration">6:22</span>
+        <span class="video-category-badge">Style</span>
+      </div>
+      <div class="video-card-body">
+        <span class="content-tag">Style Guide</span>
+        <h3>Building a Capsule Wardrobe in 2025</h3>
+        <p>Twelve pieces that do the work of forty. A visual guide to the modern minimalist wardrobe.</p>
+        <div class="video-card-meta">
+          <span class="views"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 24.1K</span>
+          <span>Jan 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-category="craft" onclick="openModal('Inside the Mill')">
+      <div class="video-thumb">
+        <img src="webUploads/aboutPagePic2.jpg" alt="Craft">
+        <div class="video-thumb-overlay">
+          <div class="play-circle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+        <span class="video-duration">9:05</span>
+        <span class="video-category-badge">Craft</span>
+      </div>
+      <div class="video-card-body">
+        <span class="content-tag">Craftsmanship</span>
+        <h3>Inside the Portuguese Mill That Makes Our Wool</h3>
+        <p>From raw fibre to finished fabric — a rare look inside the mill behind every VARRO piece.</p>
+        <div class="video-card-meta">
+          <span class="views"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 18.4K</span>
+          <span>Feb 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-category="campaign" onclick="openModal('Spring Collection Film')">
+      <div class="video-thumb">
+        <img src="webUploads/indexPage2.jpg" alt="Campaign">
+        <div class="video-thumb-overlay">
+          <div class="play-circle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+        <span class="video-duration">3:14</span>
+        <span class="video-category-badge">Campaign</span>
+      </div>
+      <div class="video-card-body">
+        <span class="content-tag">SS25 Campaign</span>
+        <h3>Spring / Summer 2025 Collection Film</h3>
+        <p>Shot on location in Lisbon. A film about light, movement, and the quiet confidence of a man who knows himself.</p>
+        <div class="video-card-meta">
+          <span class="views"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 41.7K</span>
+          <span>Mar 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-category="tutorial" onclick="openModal('How to Tie a Perfect Knot')">
+      <div class="video-thumb">
+        <img src="webUploads/indexPage3.jpg" alt="Tutorial">
+        <div class="video-thumb-overlay">
+          <div class="play-circle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+        <span class="video-duration">4:37</span>
+        <span class="video-category-badge">Tutorial</span>
+      </div>
+      <div class="video-card-body">
+        <span class="content-tag">How To</span>
+        <h3>How to Tie 5 Essential Knots — A Visual Guide</h3>
+        <p>The half-Windsor, the Pratt, the Kelvin — mastered in under five minutes with our step-by-step breakdown.</p>
+        <div class="video-card-meta">
+          <span class="views"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 32.9K</span>
+          <span>Mar 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-category="brand" onclick="openModal('Meet the Founder')">
+      <div class="video-thumb">
+        <img src="webUploads/indexPage4.jpg" alt="Brand">
+        <div class="video-thumb-overlay">
+          <div class="play-circle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+        <span class="video-duration">14:52</span>
+        <span class="video-category-badge">Brand</span>
+      </div>
+      <div class="video-card-body">
+        <span class="content-tag">Brand Story</span>
+        <h3>Meet the Founder: Why I Started VARRO</h3>
+        <p>In conversation with our founder on craft, purpose, and why he believes men deserve better clothing.</p>
+        <div class="video-card-meta">
+          <span class="views"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 11.2K</span>
+          <span>Apr 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-category="style" onclick="openModal('Dress for the Meeting')">
+      <div class="video-thumb">
+        <img src="webUploads/productPage4.jpg" alt="Style">
+        <div class="video-thumb-overlay">
+          <div class="play-circle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+        <span class="video-duration">7:19</span>
+        <span class="video-category-badge">Style</span>
+      </div>
+      <div class="video-card-body">
+        <span class="content-tag">Style Guide</span>
+        <h3>How to Dress for the Meeting That Matters</h3>
+        <p>Not a suit, not casual — the precise middle ground that reads as authority without effort.</p>
+        <div class="video-card-meta">
+          <span class="views"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 28.6K</span>
+          <span>Apr 2025</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SERIES SECTION -->
+  <div class="series-section">
+    <div class="section-header">
+      <span class="section-label">Series</span>
+      <h2 class="section-title">Watch by Series</h2>
+    </div>
+    <div class="series-strip">
+      <div class="series-card" data-aos="fade-up" onclick="filterVideos('style', document.querySelector('[onclick*=style]'))">
+        <div class="series-count">6 Episodes</div>
+        <h4>Style Foundations</h4>
+        <p>The fundamentals of men's dressing, broken down into practical, watchable lessons.</p>
+      </div>
+      <div class="series-card" data-aos="fade-up" data-delay="100" onclick="filterVideos('craft', document.querySelector('[onclick*=craft]'))">
+        <div class="series-count">4 Episodes</div>
+        <h4>Made by Hand</h4>
+        <p>Inside the mills, workshops, and ateliers that bring VARRO to life.</p>
+      </div>
+      <div class="series-card" data-aos="fade-up" data-delay="200" onclick="filterVideos('campaign', document.querySelector('[onclick*=campaign]'))">
+        <div class="series-count">5 Films</div>
+        <h4>Collection Films</h4>
+        <p>Seasonal campaign films capturing the mood behind each new VARRO collection.</p>
+      </div>
+      <div class="series-card" data-aos="fade-up" data-delay="300" onclick="filterVideos('tutorial', document.querySelector('[onclick*=tutorial]'))">
+        <div class="series-count">8 Episodes</div>
+        <h4>The How-To Series</h4>
+        <p>Practical guides to wearing, caring for, and understanding your wardrobe.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="video-modal" onclick="closeModal(event)">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="document.getElementById('video-modal').classList.remove('open')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Close
+    </button>
+    <div class="modal-video-placeholder" id="modal-placeholder">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" color="#c9a96e"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <strong id="modal-title">Video Title</strong>
+      <p>Add your video source to display here</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">VARRO</a>
+      <p>Crafted for men who move through the world with purpose. Premium clothing, timeless style.</p>
+      <div class="social-icons">
+        <a href="https://www.instagram.com" target="_" class="social-icon" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com" target="_" class="social-icon" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://x.com/login" target="_" class="social-icon" aria-label="Twitter / X">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+        </a>
+        <a href="https://www.pinterest.com"  target="_" class="social-icon" aria-label="Pinterest">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 100 20c.6 0 1.2-.06 1.77-.17-.3-.78-.58-1.97-.12-2.83l.86-3.62s-.22-.44-.22-1.1c0-1.03.6-1.8 1.34-1.8.63 0 .94.48.94 1.05 0 .64-.41 1.6-.62 2.49-.18.74.37 1.35 1.1 1.35 1.32 0 2.21-1.7 2.21-3.7 0-1.53-1.04-2.68-2.93-2.68-2.14 0-3.48 1.6-3.48 3.39 0 .61.18 1.04.46 1.37a.42.42 0 01.1.4l-.18.71c-.06.22-.2.28-.36.2-1.02-.42-1.5-1.53-1.5-2.78 0-2.06 1.74-4.55 5.19-4.55 2.8 0 4.64 2.04 4.64 4.23 0 2.9-1.6 5.07-3.96 5.07-.79 0-1.54-.43-1.8-.91l-.5 1.97c-.18.7-.67 1.58-1 2.1A10 10 0 0012 2z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/" target="_" class="social-icon" aria-label="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+        </a>
+        <a href="http://tiktok.com" target="_" class="social-icon" aria-label="TikTok">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Shop</h4>
+      <a href="products.html">New Arrivals</a>
+      <a href="products.html?cat=shirts">Shirts</a>
+      <a href="products.html?cat=outerwear">Outerwear</a>
+      <a href="products.html?cat=trousers">Trousers</a>
+      <a href="products.html?cat=knitwear">Knitwear</a>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a href="#">Careers</a>
+      <a href="#">Sustainability</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-links">
+      <h4>Help</h4>
+      <a href="#">Sizing Guide</a>
+      <a href="#">Shipping & Returns</a>
+      <a href="#">FAQ</a>
+      <a href="#">Track Order</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 VARRO. All rights reserved. Crafted with intention.</p>
+  </div>
+</footer>
+
+<script src='https://cdn.jotfor.ms/agent/embedjs/019d1aa6088c79c6aecacb96e43dace4419d/embed.js'></script>
+
+<div class="toast" id="toast"></div>
+<script src="main.js"></script>
+<script>
+function filterVideos(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn && btn.classList) btn.classList.add('active');
+  document.querySelectorAll('.video-card').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.category === cat) ? '' : 'none';
+  });
+}
+function openModal(title) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('video-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('video-modal')) {
+    document.getElementById('video-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('video-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+</script>
+</body>
+</html>

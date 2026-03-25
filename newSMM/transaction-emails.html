@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transaction Emails — VARRO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .te-wrap { max-width: 1100px; margin: 0 auto; padding: 60px 40px 100px; }
+  .email-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 60px; }
+  .email-type { background: var(--dark); padding: 28px; border: 1px solid transparent; transition: border-color var(--transition-fast); cursor: pointer; }
+  .email-type:hover, .email-type.active { border-color: rgba(201,169,110,0.3); }
+  .email-type.active .et-icon { background: rgba(201,169,110,0.2); }
+  .et-icon { width: 44px; height: 44px; background: rgba(201,169,110,0.08); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; transition: background var(--transition-fast); }
+  .email-type h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--off-white); margin-bottom: 6px; }
+  .email-type p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+  /* EMAIL PREVIEW */
+  .email-preview-section { }
+  .email-preview-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  .email-preview-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--off-white); }
+  .email-preview-wrap { background: #1a1a1a; border: 1px solid var(--charcoal); overflow: hidden; }
+  .email-preview-bar { background: var(--charcoal); padding: 12px 20px; display: flex; align-items: center; gap: 8px; }
+  .email-preview-bar span { font-size: 0.78rem; color: var(--muted); }
+  .email-preview-bar strong { color: var(--light-muted); font-weight: 500; }
+  .email-iframe { background: white; }
+  /* MINI EMAIL TEMPLATE */
+  .email-content { background: white; max-width: 600px; margin: 0 auto; }
+  .email-header-band { background: #0a0a0a; padding: 32px 40px; text-align: center; }
+  .email-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; letter-spacing: 0.25em; color: white; }
+  .email-body { padding: 40px; }
+  .email-body h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; color: #111; margin-bottom: 12px; }
+  .email-body p { font-size: 0.88rem; color: #555; line-height: 1.7; margin-bottom: 16px; }
+  .email-order-box { border: 1px solid #e5e5e5; padding: 20px; margin-bottom: 24px; }
+  .email-order-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 8px 0; border-bottom: 1px solid #f0f0f0; color: #333; }
+  .email-order-row:last-child { border-bottom: none; font-weight: 600; }
+  .email-btn { display: block; text-align: center; background: #c9a96e; color: #0a0a0a; font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 32px; text-decoration: none; margin: 0 auto 20px; width: fit-content; }
+  .email-footer-band { background: #f5f5f5; padding: 20px 40px; text-align: center; }
+  .email-footer-band p { font-size: 0.75rem; color: #999; }
+  .email-selector { display: flex; gap: 8px; margin-bottom: 20px; }
+  .email-sel-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--charcoal); background: transparent; color: var(--muted); cursor: pointer; transition: all var(--transition-fast); }
+  .email-sel-btn:hover, .email-sel-btn.active { border-color: var(--gold); color: var(--gold); }
+  @media(max-width:900px){ .email-types{grid-template-columns:1fr 1fr;} }
+  @media(max-width:600px){ .email-types{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="logo">VARRO</a>
+            <nav class="main-nav" id="main-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="about.html" class="nav-link">About</a>
+      <div class="nav-dropdown">
+        <span class="nav-link nav-dropdown-toggle">Content <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <div class="nav-dropdown-menu">
+          <a href="blog.html">Blog</a>
+          <a href="content.html">Content Hub</a>
+          <a href="videos.html">Videos</a>
+          <a href="insights.html">Insights</a>
+          <a href="newsletters.html">Newsletters</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-link nav-dropdown-toggle">Marketing <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <div class="nav-dropdown-menu">
+          <a href="social-media-marketing.html">Social Media</a>
+		  <a href="affiliate.html">Affiliate Marketing</a>
+          <a href="deal-sourcing.html">Deal Sourcing</a>
+          <a href="promo-emails.html">Promo Emails</a>
+          <a href="transaction-emails.html">Transaction Emails</a>
+        </div>
+      </div>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="login.html" class="nav-link">Login</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="cart-btn" aria-label="Cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="page-hero">
+  <span class="section-label">Automated</span>
+  <h1>Transaction Emails</h1>
+  <p>Every email VARRO sends is crafted with the same care as our garments — clear, considered, and never cluttered.</p>
+</div>
+
+<div class="te-wrap">
+
+  <!-- EMAIL TYPES -->
+  <div class="email-types" data-aos="fade-up">
+    <div class="email-type active" onclick="showEmail('order', this)">
+      <div class="et-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+      <h4>Order Confirmation</h4>
+      <p>Sent immediately after purchase with order details, estimated delivery, and a thank-you note.</p>
+    </div>
+    <div class="email-type" onclick="showEmail('shipping', this)">
+      <div class="et-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+      <h4>Shipping Update</h4>
+      <p>Tracking number, carrier details, and real-time status updates as your order moves toward you.</p>
+    </div>
+    <div class="email-type" onclick="showEmail('delivery', this)">
+      <div class="et-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h4>Delivery Confirmed</h4>
+      <p>Delivery confirmation with care instructions, review request, and styling tips for your new piece.</p>
+    </div>
+    <div class="email-type" onclick="showEmail('return', this)">
+      <div class="et-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
+      <h4>Return Initiated</h4>
+      <p>Return label, instructions, and timeline when a customer initiates a return or exchange.</p>
+    </div>
+    <div class="email-type" onclick="showEmail('refund', this)">
+      <div class="et-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+      <h4>Refund Processed</h4>
+      <p>Confirmation that a refund has been issued with amount details and expected arrival in account.</p>
+    </div>
+    <div class="email-type" onclick="showEmail('welcome', this)">
+      <div class="et-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+      <h4>Welcome Email</h4>
+      <p>Sent on account creation. Introduces the brand, links to the size guide, and offers a first-purchase discount.</p>
+    </div>
+  </div>
+
+  <!-- EMAIL PREVIEW -->
+  <div class="email-preview-section" data-aos="fade-up">
+    <div class="email-preview-header">
+      <h3>Email Preview</h3>
+    </div>
+    <div class="email-preview-wrap">
+      <div class="email-preview-bar">
+        <span>From: <strong>orders@varroclothing.com</strong></span>
+        <span style="margin-left:auto">Subject: <strong id="email-subject">Your VARRO Order #29481 is confirmed</strong></span>
+      </div>
+      <div class="email-iframe">
+        <div class="email-content" id="email-preview">
+          <!-- ORDER CONFIRMATION DEFAULT -->
+          <div class="email-header-band">
+            <div class="email-logo">VARRO</div>
+          </div>
+          <div class="email-body">
+            <h2>Order Confirmed</h2>
+            <p>Thank you for your order. We're preparing your pieces now — expect dispatch within 1–2 business days.</p>
+            <div class="email-order-box">
+              <div class="email-order-row"><span>Heritage Wool Blazer (M)</span><span>$289.00</span></div>
+              <div class="email-order-row"><span>Oxford Button-Down (L)</span><span>$95.00</span></div>
+              <div class="email-order-row"><span>Shipping</span><span>Free</span></div>
+              <div class="email-order-row"><span>Order Total</span><span>$384.00</span></div>
+            </div>
+            <p style="font-size:0.82rem;color:#777">Estimated delivery: <strong style="color:#333">3–5 business days</strong><br>Order #29481 · Placed Jan 20, 2025</p>
+            <a href="#" class="email-btn">Track Your Order</a>
+          </div>
+          <div class="email-footer-band">
+            <p>VARRO Clothing Ltd. · London, UK · <a href="#" style="color:#c9a96e">Unsubscribe</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">VARRO</a>
+      <p>Crafted for men who move through the world with purpose. Premium clothing, timeless style.</p>
+      <div class="social-icons">
+        <a href="https://www.instagram.com" target="_" class="social-icon" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com" target="_" class="social-icon" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://x.com/login" target="_" class="social-icon" aria-label="Twitter / X">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+        </a>
+        <a href="https://www.pinterest.com"  target="_" class="social-icon" aria-label="Pinterest">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 100 20c.6 0 1.2-.06 1.77-.17-.3-.78-.58-1.97-.12-2.83l.86-3.62s-.22-.44-.22-1.1c0-1.03.6-1.8 1.34-1.8.63 0 .94.48.94 1.05 0 .64-.41 1.6-.62 2.49-.18.74.37 1.35 1.1 1.35 1.32 0 2.21-1.7 2.21-3.7 0-1.53-1.04-2.68-2.93-2.68-2.14 0-3.48 1.6-3.48 3.39 0 .61.18 1.04.46 1.37a.42.42 0 01.1.4l-.18.71c-.06.22-.2.28-.36.2-1.02-.42-1.5-1.53-1.5-2.78 0-2.06 1.74-4.55 5.19-4.55 2.8 0 4.64 2.04 4.64 4.23 0 2.9-1.6 5.07-3.96 5.07-.79 0-1.54-.43-1.8-.91l-.5 1.97c-.18.7-.67 1.58-1 2.1A10 10 0 0012 2z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/" target="_" class="social-icon" aria-label="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+        </a>
+        <a href="http://tiktok.com" target="_" class="social-icon" aria-label="TikTok">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Shop</h4>
+      <a href="products.html">New Arrivals</a>
+      <a href="products.html?cat=shirts">Shirts</a>
+      <a href="products.html?cat=outerwear">Outerwear</a>
+      <a href="products.html?cat=trousers">Trousers</a>
+      <a href="products.html?cat=knitwear">Knitwear</a>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a href="#">Careers</a>
+      <a href="#">Sustainability</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-links">
+      <h4>Help</h4>
+      <a href="#">Sizing Guide</a>
+      <a href="#">Shipping & Returns</a>
+      <a href="#">FAQ</a>
+      <a href="#">Track Order</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 VARRO. All rights reserved. Crafted with intention.</p>
+  </div>
+</footer>
+
+<script src='https://cdn.jotfor.ms/agent/embedjs/019d1aa6088c79c6aecacb96e43dace4419d/embed.js'></script>
+
+<script src="main.js"></script>
+<script>
+const emailTemplates = {
+  order: {
+    subject: 'Your VARRO Order #29481 is confirmed',
+    body: `<div class="email-header-band"><div class="email-logo">VARRO</div></div>
+      <div class="email-body">
+        <h2>Order Confirmed</h2>
+        <p>Thank you for your order. We're preparing your pieces now — expect dispatch within 1–2 business days.</p>
+        <div class="email-order-box">
+          <div class="email-order-row"><span>Heritage Wool Blazer (M)</span><span>$289.00</span></div>
+          <div class="email-order-row"><span>Oxford Button-Down (L)</span><span>$95.00</span></div>
+          <div class="email-order-row"><span>Shipping</span><span>Free</span></div>
+          <div class="email-order-row"><span>Order Total</span><span>$384.00</span></div>
+        </div>
+        <p style="font-size:.82rem;color:#777">Estimated delivery: <strong style="color:#333">3–5 business days</strong><br>Order #29481 · Placed Jan 20, 2025</p>
+        <a href="#" class="email-btn">Track Your Order</a>
+      </div>
+      <div class="email-footer-band"><p>VARRO Clothing Ltd. · London, UK · <a href="#" style="color:#c9a96e">Unsubscribe</a></p></div>`
+  },
+  shipping: {
+    subject: 'Your VARRO order is on its way 📦',
+    body: `<div class="email-header-band"><div class="email-logo">VARRO</div></div>
+      <div class="email-body">
+        <h2>Your Order is Shipped</h2>
+        <p>Good news — your VARRO pieces have left our warehouse and are on their way to you.</p>
+        <div class="email-order-box">
+          <div class="email-order-row"><span>Carrier</span><span>DHL Express</span></div>
+          <div class="email-order-row"><span>Tracking Number</span><span style="color:#c9a96e">1234567890</span></div>
+          <div class="email-order-row"><span>Expected Delivery</span><span>Jan 24–25, 2025</span></div>
+        </div>
+        <a href="#" class="email-btn">Track Shipment</a>
+      </div>
+      <div class="email-footer-band"><p>VARRO Clothing Ltd. · <a href="#" style="color:#c9a96e">Unsubscribe</a></p></div>`
+  },
+  delivery: {
+    subject: 'Your VARRO order has been delivered ✓',
+    body: `<div class="email-header-band"><div class="email-logo">VARRO</div></div>
+      <div class="email-body">
+        <h2>Delivered.</h2>
+        <p>Your order has arrived. We hope the pieces are everything you expected — crafted for the long term.</p>
+        <div class="email-order-box">
+          <div class="email-order-row"><span>Delivered to</span><span>Your address</span></div>
+          <div class="email-order-row"><span>Delivered on</span><span>Jan 24, 2025 · 2:14 PM</span></div>
+        </div>
+        <p style="font-size:.82rem;color:#777">How was your experience? Your review helps us and other customers.</p>
+        <a href="#" class="email-btn">Leave a Review</a>
+      </div>
+      <div class="email-footer-band"><p>VARRO Clothing Ltd. · <a href="#" style="color:#c9a96e">Unsubscribe</a></p></div>`
+  },
+  return: {
+    subject: 'Your VARRO return has been initiated',
+    body: `<div class="email-header-band"><div class="email-logo">VARRO</div></div>
+      <div class="email-body">
+        <h2>Return Initiated</h2>
+        <p>We've received your return request. Please use the prepaid label below and drop it off within 14 days.</p>
+        <div class="email-order-box">
+          <div class="email-order-row"><span>Return Ref.</span><span>#R-4821</span></div>
+          <div class="email-order-row"><span>Item</span><span>Heritage Wool Blazer (M)</span></div>
+          <div class="email-order-row"><span>Reason</span><span>Sizing issue</span></div>
+        </div>
+        <a href="#" class="email-btn">Download Return Label</a>
+        <p style="font-size:.82rem;color:#777">Refund will be processed within 5–7 business days of receiving your return.</p>
+      </div>
+      <div class="email-footer-band"><p>VARRO Clothing Ltd. · <a href="#" style="color:#c9a96e">Unsubscribe</a></p></div>`
+  },
+  refund: {
+    subject: 'Your VARRO refund has been processed',
+    body: `<div class="email-header-band"><div class="email-logo">VARRO</div></div>
+      <div class="email-body">
+        <h2>Refund Issued</h2>
+        <p>Your refund has been processed. Depending on your bank, it should appear in your account within 3–5 business days.</p>
+        <div class="email-order-box">
+          <div class="email-order-row"><span>Refund Amount</span><span>$289.00</span></div>
+          <div class="email-order-row"><span>Method</span><span>Original payment method</span></div>
+          <div class="email-order-row"><span>Processed</span><span>Jan 27, 2025</span></div>
+        </div>
+        <a href="#" class="email-btn">View Account</a>
+      </div>
+      <div class="email-footer-band"><p>VARRO Clothing Ltd. · <a href="#" style="color:#c9a96e">Unsubscribe</a></p></div>`
+  },
+  welcome: {
+    subject: 'Welcome to VARRO — Here\'s 10% Off Your First Order',
+    body: `<div class="email-header-band"><div class="email-logo">VARRO</div></div>
+      <div class="email-body">
+        <h2>Welcome to VARRO.</h2>
+        <p>You've just joined 52,000 men who believe that dressing well is a form of self-respect. We're glad you're here.</p>
+        <p>As a welcome, here's 10% off your first order:</p>
+        <div class="email-order-box">
+          <div class="email-order-row"><span>Discount Code</span><span style="color:#c9a96e;font-weight:600;letter-spacing:.1em">WELCOME10</span></div>
+          <div class="email-order-row"><span>Value</span><span>10% off any order</span></div>
+          <div class="email-order-row"><span>Valid Until</span><span>30 days from today</span></div>
+        </div>
+        <a href="#" class="email-btn">Shop the Collection</a>
+      </div>
+      <div class="email-footer-band"><p>VARRO Clothing Ltd. · <a href="#" style="color:#c9a96e">Unsubscribe</a></p></div>`
+  }
+};
+
+function showEmail(type, el) {
+  document.querySelectorAll('.email-type').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  const tpl = emailTemplates[type];
+  document.getElementById('email-subject').textContent = tpl.subject;
+  document.getElementById('email-preview').innerHTML = tpl.body;
+}
+</script>
+</body>
+</html>

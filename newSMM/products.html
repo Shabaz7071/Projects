@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products — VARRO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="logo">VARRO</a>
+            <nav class="main-nav" id="main-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="about.html" class="nav-link">About</a>
+      <div class="nav-dropdown">
+        <span class="nav-link nav-dropdown-toggle">Content <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <div class="nav-dropdown-menu">
+          <a href="blog.html">Blog</a>
+          <a href="content.html">Content Hub</a>
+          <a href="videos.html">Videos</a>
+          <a href="insights.html">Insights</a>
+          <a href="newsletters.html">Newsletters</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-link nav-dropdown-toggle">Marketing <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <div class="nav-dropdown-menu">
+          <a href="social-media-marketing.html">Social Media</a>
+		  <a href="affiliate.html">Affiliate Marketing</a>
+          <a href="deal-sourcing.html">Deal Sourcing</a>
+          <a href="promo-emails.html">Promo Emails</a>
+          <a href="transaction-emails.html">Transaction Emails</a>
+        </div>
+      </div>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="login.html" class="nav-link">Login</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="cart-btn" aria-label="Cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="section-label">Our Collection</span>
+  <h1>All Products</h1>
+  <p>Refined essentials crafted for the modern man — from boardroom to weekend.</p>
+</div>
+
+<!-- PRODUCTS MAIN -->
+<main class="products-main">
+  <div class="products-filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="shirts">Shirts</button>
+    <button class="filter-btn" data-filter="outerwear">Outerwear</button>
+    <button class="filter-btn" data-filter="trousers">Trousers</button>
+    <button class="filter-btn" data-filter="knitwear">Knitwear</button>
+    <button class="filter-btn" data-filter="denim">Denim</button>
+  </div>
+
+  <div class="products-grid">
+
+    <!-- Shirts -->
+    <div class="product-card" data-category="shirts" data-aos="fade-up">
+      <div class="card-image-wrap">
+        <img src="webUploads/indexPage3.jpg" alt="Oxford Shirt">
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Shirts</span>
+        <h3 class="card-name">Oxford Button-Down</h3>
+        <div class="card-price-row">
+          <span class="card-price">$95</span>
+          <button class="add-cart-btn" onclick="addToCart('Oxford Button-Down', 95, 'webUploads/indexPage3.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="shirts" data-aos="fade-up" data-delay="100">
+      <div class="card-image-wrap">
+        <img src="webUploads/productPage1.jpg" alt="Linen Shirt">
+        <div class="card-badge">New</div>
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Shirts</span>
+        <h3 class="card-name">Summer Linen Shirt</h3>
+        <div class="card-price-row">
+          <span class="card-price">$110</span>
+          <button class="add-cart-btn" onclick="addToCart('Summer Linen Shirt', 110, 'webUploads/productPage1.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="shirts" data-aos="fade-up" data-delay="200">
+      <div class="card-image-wrap">
+        <img src="webUploads/indexPage7.jpg" alt="Formal Shirt">
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Shirts</span>
+        <h3 class="card-name">Slim Formal Shirt</h3>
+        <div class="card-price-row">
+          <span class="card-price">$85</span>
+          <button class="add-cart-btn" onclick="addToCart('Slim Formal Shirt', 85, 'webUploads/indexPage7.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="shirts" data-aos="fade-up" data-delay="300">
+      <div class="card-image-wrap">
+        <img src="webUploads/productPage2.jpg" alt="Chambray Shirt">
+        <div class="card-badge sale">Sale</div>
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Shirts</span>
+        <h3 class="card-name">Chambray Workshirt</h3>
+        <div class="card-price-row">
+          <span class="card-price">$72</span>
+          <span class="card-original">$98</span>
+          <button class="add-cart-btn" onclick="addToCart('Chambray Workshirt', 72, 'webUploads/productPage2.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Outerwear -->
+    <div class="product-card" data-category="outerwear" data-aos="fade-up">
+      <div class="card-image-wrap">
+        <img src="webUploads/indexPage1.jpg" alt="Blazer">
+        <div class="card-badge">New</div>
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Outerwear</span>
+        <h3 class="card-name">Heritage Wool Blazer</h3>
+        <div class="card-price-row">
+          <span class="card-price">$289</span>
+          <button class="add-cart-btn" onclick="addToCart('Heritage Wool Blazer', 289, 'webUploads/indexPage1.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="outerwear" data-aos="fade-up" data-delay="100">
+      <div class="card-image-wrap">
+        <img src="webUploads/indexPage5.jpg" alt="Leather Jacket">
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Outerwear</span>
+        <h3 class="card-name">Moto Leather Jacket</h3>
+        <div class="card-price-row">
+          <span class="card-price">$445</span>
+          <button class="add-cart-btn" onclick="addToCart('Moto Leather Jacket', 445, 'webUploads/indexPage5.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="outerwear" data-aos="fade-up" data-delay="200">
+      <div class="card-image-wrap">
+        <img src="webUploads/indexPage8.jpg" alt="Overcoat">
+        <div class="card-badge">Best Seller</div>
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Outerwear</span>
+        <h3 class="card-name">Cashmere Overcoat</h3>
+        <div class="card-price-row">
+          <span class="card-price">$595</span>
+          <button class="add-cart-btn" onclick="addToCart('Cashmere Overcoat', 595, 'webUploads/indexPage8.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="outerwear" data-aos="fade-up" data-delay="300">
+      <div class="card-image-wrap">
+        <img src="webUploads/productPage3.jpg" alt="Bomber">
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Outerwear</span>
+        <h3 class="card-name">Harrington Bomber</h3>
+        <div class="card-price-row">
+          <span class="card-price">$198</span>
+          <button class="add-cart-btn" onclick="addToCart('Harrington Bomber', 198, 'webUploads/productPage3.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trousers -->
+    <div class="product-card" data-category="trousers" data-aos="fade-up">
+      <div class="card-image-wrap">
+        <img src="webUploads/indexPage2.jpg" alt="Chinos">
+        <div class="card-badge sale">Sale</div>
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Trousers</span>
+        <h3 class="card-name">Tailored Slim Chinos</h3>
+        <div class="card-price-row">
+          <span class="card-price">$129</span>
+          <span class="card-original">$169</span>
+          <button class="add-cart-btn" onclick="addToCart('Tailored Slim Chinos', 129, 'webUploads/indexPage2.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="trousers" data-aos="fade-up" data-delay="100">
+      <div class="card-image-wrap">
+        <img src="webUploads/indexPage9.jpg" alt="Trousers">
+        <div class="card-badge">New</div>
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Trousers</span>
+        <h3 class="card-name">Pleated Dress Trousers</h3>
+        <div class="card-price-row">
+          <span class="card-price">$155</span>
+          <button class="add-cart-btn" onclick="addToCart('Pleated Dress Trousers', 155, 'webUploads/indexPage9.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Knitwear -->
+    <div class="product-card" data-category="knitwear" data-aos="fade-up">
+      <div class="card-image-wrap">
+        <img src="webUploads/indexPage4.jpg" alt="Sweater">
+        <div class="card-badge">Best Seller</div>
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Knitwear</span>
+        <h3 class="card-name">Merino Crew Sweater</h3>
+        <div class="card-price-row">
+          <span class="card-price">$165</span>
+          <button class="add-cart-btn" onclick="addToCart('Merino Crew Sweater', 165, 'webUploads/indexPage4.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="knitwear" data-aos="fade-up" data-delay="100">
+      <div class="card-image-wrap">
+        <img src="webUploads/productPage4.jpg" alt="Cardigan">
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Knitwear</span>
+        <h3 class="card-name">Cashmere Cardigan</h3>
+        <div class="card-price-row">
+          <span class="card-price">$220</span>
+          <button class="add-cart-btn" onclick="addToCart('Cashmere Cardigan', 220, 'webUploads/productPage4.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Denim -->
+    <div class="product-card" data-category="denim" data-aos="fade-up">
+      <div class="card-image-wrap">
+        <img src="webUploads/indexPage6.jpg" alt="Jeans">
+        <div class="card-badge sale">Sale</div>
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Denim</span>
+        <h3 class="card-name">Selvedge Slim Jean</h3>
+        <div class="card-price-row">
+          <span class="card-price">$135</span>
+          <span class="card-original">$175</span>
+          <button class="add-cart-btn" onclick="addToCart('Selvedge Slim Jean', 135, 'webUploads/indexPage6.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="denim" data-aos="fade-up" data-delay="100">
+      <div class="card-image-wrap">
+        <img src="webUploads/cartPage2.jpg" alt="Raw Denim">
+        <div class="card-badge">New</div>
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Denim</span>
+        <h3 class="card-name">Raw Straight Jean</h3>
+        <div class="card-price-row">
+          <span class="card-price">$148</span>
+          <button class="add-cart-btn" onclick="addToCart('Raw Straight Jean', 148, 'webUploads/cartPage2.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="denim" data-aos="fade-up" data-delay="200">
+      <div class="card-image-wrap">
+        <img src="webUploads/productPage5.jpg" alt="Denim Jacket">
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Denim</span>
+        <h3 class="card-name">Classic Denim Jacket</h3>
+        <div class="card-price-row">
+          <span class="card-price">$185</span>
+          <button class="add-cart-btn" onclick="addToCart('Classic Denim Jacket', 185, 'webUploads/productPage5.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="shirts" data-aos="fade-up" data-delay="100">
+      <div class="card-image-wrap">
+        <img src="webUploads/cartPage3.jpg" alt="Polo">
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Shirts</span>
+        <h3 class="card-name">Piqué Polo Shirt</h3>
+        <div class="card-price-row">
+          <span class="card-price">$78</span>
+          <button class="add-cart-btn" onclick="addToCart('Piqué Polo Shirt', 78, 'webUploads/cartPage3.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="knitwear" data-aos="fade-up" data-delay="200">
+      <div class="card-image-wrap">
+        <img src="webUploads/cartPage1.jpg" alt="Turtleneck">
+        <div class="card-badge">New</div>
+        <div class="card-overlay"><a href="#" class="card-quick-view">Quick View</a></div>
+      </div>
+      <div class="card-info">
+        <span class="card-category">Knitwear</span>
+        <h3 class="card-name">Fine Knit Turtleneck</h3>
+        <div class="card-price-row">
+          <span class="card-price">$145</span>
+          <button class="add-cart-btn" onclick="addToCart('Fine Knit Turtleneck', 145, 'webUploads/cartPage1.jpg')">Add</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">VARRO</a>
+      <p>Crafted for men who move through the world with purpose. Premium clothing, timeless style.</p>
+      <div class="social-icons">
+        <a href="https://www.instagram.com" target="_" class="social-icon" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com" target="_" class="social-icon" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://x.com/login" target="_" class="social-icon" aria-label="Twitter / X">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+        </a>
+        <a href="https://www.pinterest.com"  target="_" class="social-icon" aria-label="Pinterest">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 100 20c.6 0 1.2-.06 1.77-.17-.3-.78-.58-1.97-.12-2.83l.86-3.62s-.22-.44-.22-1.1c0-1.03.6-1.8 1.34-1.8.63 0 .94.48.94 1.05 0 .64-.41 1.6-.62 2.49-.18.74.37 1.35 1.1 1.35 1.32 0 2.21-1.7 2.21-3.7 0-1.53-1.04-2.68-2.93-2.68-2.14 0-3.48 1.6-3.48 3.39 0 .61.18 1.04.46 1.37a.42.42 0 01.1.4l-.18.71c-.06.22-.2.28-.36.2-1.02-.42-1.5-1.53-1.5-2.78 0-2.06 1.74-4.55 5.19-4.55 2.8 0 4.64 2.04 4.64 4.23 0 2.9-1.6 5.07-3.96 5.07-.79 0-1.54-.43-1.8-.91l-.5 1.97c-.18.7-.67 1.58-1 2.1A10 10 0 0012 2z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/" target="_" class="social-icon" aria-label="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+        </a>
+        <a href="http://tiktok.com" target="_" class="social-icon" aria-label="TikTok">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Shop</h4>
+      <a href="products.html">New Arrivals</a>
+      <a href="products.html?cat=shirts">Shirts</a>
+      <a href="products.html?cat=outerwear">Outerwear</a>
+      <a href="products.html?cat=trousers">Trousers</a>
+      <a href="products.html?cat=knitwear">Knitwear</a>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a href="#">Careers</a>
+      <a href="#">Sustainability</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-links">
+      <h4>Help</h4>
+      <a href="#">Sizing Guide</a>
+      <a href="#">Shipping & Returns</a>
+      <a href="#">FAQ</a>
+      <a href="#">Track Order</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 VARRO. All rights reserved. Crafted with intention.</p>
+  </div>
+</footer>
+
+<script src='https://cdn.jotfor.ms/agent/embedjs/019d1aa6088c79c6aecacb96e43dace4419d/embed.js'></script>
+
+<div class="toast" id="toast"></div>
+<script src="main.js"></script>
+</body>
+</html>
